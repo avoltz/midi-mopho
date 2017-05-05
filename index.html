@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ChroMopho</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="knob.css">
+  <script src="adsr.js"></script>
+  <script src="button.js"></script>
+  <script src="midi.js"></script>
+  <script src="knob.js"></script>
+  <script src="midikeys.js"></script>
+  <script src="mopho-protocol.js"></script>
+  <script src="main.js"></script>
+</head>
+<body>
+  <h1>ChroMopho</h1>
+  <canvas id="test2" width="100" height="60"></canvas>
+  <div id="test1" class="knob" data-min="10" data-max="100" data-val="55"></div>
+  <div id="test3"><span>Square</span></div>
+  <div class="templates">
+    <div class="tpl-knob"><div class="dial"></div><div class="val"></div><div class="name"></div></div>
+  </div>
+  <div class="pgroup osc">
+    <div>
+      <input class="param" type="range" name="O1 Freq" data-cc="20" data-pn="0">Freq<br/>
+      <input class="param" type="range" name="O1 Fine" data-cc="21" data-pn="1">Fine<br/>
+      <input class="param" type="range" name="O1 Glide" data-cc="23" data-pn="2" min="0" max="127">Glide<br/>
+      <span>Oscillator 1</span><input class="param" type="checkbox" name="O1 Keyboard" data-nrpn="4" data-pn="4">Kb
+    </div>
+    <div class="shape" data-cc="22" data-pn="3">
+      <input class="param" type="radio" name="O1 Shape" data-cc="22" value="0">Off<br/>
+      <input class="param" type="radio" name="O1 Shape" data-cc="22" value="1">Saw<br/>
+      <input class="param" type="radio" name="O1 Shape" data-cc="22" value="2">Tri<br/>
+      <input class="param" type="radio" name="O1 Shape" data-cc="22" value="3">Saw+Tri<br/>
+      <input class="param" type="radio" name="O1 Shape" value="4">Pulse<br/>
+      <input class="param" type="range" name="O1 Pulse Width" min="0" max="99">Width
+    </div>
+  </div>
+  <div class="pgroup osc">
+    <div>
+      <input class="param" type="range" name="O2 Freq" data-cc="24">Freq<br/>
+      <input class="param" type="range" name="O2 Fine" data-cc="25">Fine<br/>
+      <input class="param" type="range" name="O2 Glide" data-cc="27" min="0" max="127">Glide<br/>
+      <span>Oscillator 2</span><input class="param" type="checkbox" name="O2 Keyboard" data-nrpn="9">Kb
+    </div>
+    <div class="shape" data-cc="26">
+      <input class="param" type="radio" name="O2 Shape" data-cc="26" value="0">Off<br/>
+      <input class="param" type="radio" name="O2 Shape" data-cc="26" value="1">Saw<br/>
+      <input class="param" type="radio" name="O2 Shape" data-cc="26" value="2">Tri<br/>
+      <input class="param" type="radio" name="O2 Shape" data-cc="26" value="3">Saw+Tri<br/>
+      <input class="param" type="radio" name="O2 Shape" value="4">Pulse<br/>
+      <input class="param" type="range" name="O2 Pulse Width" min="0" max="99">Width
+    </div>
+  </div>
+  <div class="pgroup osc misc">
+    <div>
+      <input class="param" type="checkbox" name="Sync" data-nrpn="10">Sync<br/>
+      <select name="Glide Mode" class="param" data-nrpn="11">
+        <option value="0">FixRate</option>
+        <option value="1">FixRate A</option>
+        <option value="2">FixTime</option>
+        <option value="3">FixTime A</option>
+      </select>
+      <input class="param" type="range" max="127" name="Mix" data-cc="28">Mix<br/>
+      <input class="param" type="range" max="127" name="Noise" data-cc="29">Noise</br/>
+      <input class="param" type="range" max="127" name="Sub O1" data-cc="30">Sub Osc 1<br/>
+      <input class="param" type="range" max="127" name="Sub O2" data-cc="31">Sub Osc 2<br/>
+      <input class="param" type="range" max="127" name="Ext In Vol" data-cc="31">Ext in vol<br/>
+      <input class="param" type="range" min="0" max="5" name="Slop" value="0" data-nrpn="12">Slop<br/>
+    </div>
+  </div>
+  <div class="pgroup filter">
+    <div>
+      <input class="param" type="checkbox" name="Poles" data-nrpn="19">2/4 Pole
+      <input class="param" type="range" max="127" name="Env Freq" data-cc="102">Env Freq<br/>
+      <input class="param" type="range" max="127" name="Env Resonance" data-cc="103">Env Res<br/>
+      <input class="param" type="range" max="127" name="Key Amt" data-cc="104">Key Amount<br/>
+      <input class="param" type="range" max="127" name="Audio Mod" data-cc="105">Audio Mod<br/>
+      <input class="param" type="range" max="127" name="Env Amt" data-cc="106">Env Amt<br/>
+      <input class="param" type="range" max="127" name="Env Vel Amt" data-cc="107">Env Vel Amt<br/>
+      <input class="param" type="range" max="127" name="Delay" data-cc="108">Delay<br/>
+      <input class="param" type="range" max="127" name="Attack" data-cc="109">Attack<br/>
+      <input class="param" type="range" max="127" name="Decay" data-cc="110">Decay<br/>
+      <input class="param" type="range" max="127" name="Sustain" data-cc="111">Sustain<br/>
+      <input class="param" type="range" max="127" name="Release" data-cc="112">Release<br/>
+    </div>
+  </div>
+  <div class="pgroup vca">
+      <input class="param" type="range" name="VCA Env Amt" max="127" data-cc="115">VCA Env Amt<br/>
+      <input class="param" type="range" name="VCA Velocity Amt" max="127" data-cc="116">VCA Velocity Amt<br/>
+      <input class="param" type="range" name="VCA Delay" max="127" data-cc="117">VCA Delay<br/>
+      <input class="param" type="range" name="VCA Attack" max="127" data-cc="118">VCA Attack<br/>
+      <input class="param" type="range" name="VCA Decay" max="127" data-cc="119">VCA Decay<br/>
+      <input class="param" type="range" name="VCA Sustain" max="127" data-cc="75">VCA Sustain<br/>
+      <input class="param" type="range" name="VCA Release" max="127" data-cc="76">VCA Release<br/>
+    </div>
+  </div>
+  <div class="pgroup env3">
+    <div>
+      <select name="Env 3 Dest" class="param dest" data-cc="85"></select><br/>
+      <input class="param" type="range" max="127" name="Env 3 Dest" data-cc="85">Env 3 Dest<br/>
+      <input class="param" type="range" max="127" name="Env 3 Amt" data-cc="86">Env 3 Amt<br/>
+      <input class="param" type="range" max="127" name="Env 3 Velocity Amt" data-cc="87">Env 3 Velocity Amt<br/>
+      <input class="param" type="range" max="127" name="Env 3 Delay" data-cc="88">Env 3 Delay<br/>
+      <input class="param" type="range" max="127" name="Env 3 Attack" data-cc="89">Env 3 Attack<br/>
+      <input class="param" type="range" max="127" name="Env 3 Decay" data-cc="90">Env 3 Decay<br/>
+      <input class="param" type="range" max="127" name="Env 3 Sustain" data-cc="77">Env 3 Sustain<br/>
+      <input class="param" type="range" max="127" name="Env 3 Release" data-cc="78">Env 3 Release<br/>
+      <input class="param" type="checkbox" name="Env 3 Repeat" data-nrpn="98">Env 3 Repeat<br/>
+    </div>
+  </div>
+  <br/>
+  <br/>
+  <div id="log"></div>
+</body>
+</html>

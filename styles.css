@@ -1,0 +1,54 @@
+body {
+  background-color: #ffee11;
+  font-family: arial;
+  color: #555;
+}
+
+h1 {
+  color: black;
+  font-family: verdana;
+}
+
+#log {
+  border: 3px #ffff66 solid;
+}
+
+div.pgroup {
+  border: 3px #ffff66 solid;
+  border-radius: 0.6em;
+  display: inline-block;
+  padding: 5px;
+}
+
+canvas {
+  border: 1px #ffff66 solid;
+  color: #ffee11;
+}
+
+/* oscillator styles */
+
+div.osc div {
+  display: inline-block;
+  max-width: 16em;
+  vertical-align: top;
+}
+
+div.osc span {
+  font-size: larger;
+  padding-right: 1em;
+}
+
+div.button-on,
+div.button-off {
+  padding: 0.2em;
+  display: inline-block;
+  border: 1px double #666;
+}
+div.button-on {
+  background-color: #010101;
+  color: #ffff66;
+}
+div.button-off {
+  background-color: #f1f101;
+  color: #ffff66;
+}
